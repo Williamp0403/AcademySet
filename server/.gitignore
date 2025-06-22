@@ -1,1 +1,41 @@
-venv
+# Archivos de Python
+*.pyc
+__pycache__/
+
+# Base de datos local
+db.sqlite3
+
+# Archivos de entorno virtual
+.env
+.venv/
+env/
+venv/
+
+# Archivos de logs
+*.log
+
+# Archivos de migraciones (opcional, pero muchos prefieren incluirlos)
+# Si decides ignorarlos, descomenta la siguiente línea:
+# */migrations/
+
+# Archivos de medios y estáticos generados
+/media/
+/staticfiles/
+
+# Configuración de editores
+.vscode/
+.idea/
+
+# Archivos de compilación y distribución
+*.egg-info/
+build/
+dist/
+
+# Cachés de pruebas
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Otros
+*.bak
+.DS_Store
