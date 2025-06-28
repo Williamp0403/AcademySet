@@ -1,13 +1,13 @@
 from django.contrib import admin
-from .models import Libro
+from .models import Categoria, Libro
 
-# Register your models here.
+@admin.register(Categoria)
+class CategoriaAdmin(admin.ModelAdmin):
+    list_display = ('nombre',)
+    search_fields = ('nombre',)
 
-
+@admin.register(Libro)
 class LibroAdmin(admin.ModelAdmin):
-    list_display = ('titulo', 'autor', 'disponible')
-    list_filter = ('disponible',)
-    search_fields = ('titulo', 'autor')
-
-
-admin.site.register(Libro, LibroAdmin)
+    list_display = ('titulo', 'autor', 'categoria', 'disponible')
+    list_filter = ('categoria', 'disponible')
+    search_fields = ('titulo', 'autor', 'isbn')
