@@ -6,7 +6,7 @@ export const UserContext = createContext();
 export const useUser = () => {
   const context = useContext(UserContext);
   if (!context) {
-    throw new Error("useUser debe utilizarse dentro de uSErovider")
+    throw new Error("useUser debe utilizarse dentro de UseProvider")
   }
   return context
 };

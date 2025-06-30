@@ -11,30 +11,35 @@ import { HistoryPage } from "./pages/HistoryPage"
 import { UserProvider } from "./context/UserContext"
 import { NotFound404Page } from './pages/NotFound404Page'
 import { RegisterUserPage } from './pages/RegisterUserPage'
+import { LoanPage } from './pages/LoanPage';
+import { BookProvider } from './context/BookContext';
 
 function App() {
   return (
     <UserProvider>
-      <Toaster richColors/>
-      <BrowserRouter>
-          <Routes>
+      <BookProvider>
+        <Toaster richColors/>
+        <BrowserRouter>
+            <Routes>
 
-            // Contenido con Header
-            <Route element={<MainLayout />}>
-              <Route path="/" element={<HomePage/>}/>
-              <Route path="/libros" element={<BooksPage/>}/>
-              <Route path="/usuarios" element={<UsersPage/>}/>
-              <Route path="/historial" element={<HistoryPage/>}/>
-              <Route path='*' element={<NotFound404Page/>}/>
-            </Route>
-          
-            // Contenido sin Header
-            <Route element={<MinimalLayout />}>  
-              <Route path='/crear-usuario' element={<RegisterUserPage/>}/>
-            </Route>
+              {/* Contenido con Header Principal */}
+              <Route element={<MainLayout />}>
+                <Route path="/" element={<HomePage/>}/>
+                <Route path="/libros" element={<BooksPage/>}/>
+                <Route path="/usuarios" element={<UsersPage/>}/>
+                <Route path="/historial" element={<HistoryPage/>}/>
+                <Route path='*' element={<NotFound404Page/>}/>
+              </Route>
+            
+              {/* Contenido con Header Secundario */}
+              <Route element={<MinimalLayout />}>  
+                <Route path='/crear-usuario' element={<RegisterUserPage/>}/>
+                <Route path='/prestamo-libro' element={<LoanPage/>}/>
+              </Route>
 
-          </Routes>
-      </BrowserRouter>
+            </Routes>
+        </BrowserRouter>
+      </BookProvider>
     </UserProvider>
   )
 }

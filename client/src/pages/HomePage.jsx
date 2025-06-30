@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Input } from "../components/Input";
 import { useForm } from "react-hook-form"
 import BadgeOutlinedIcon from '@mui/icons-material/BadgeOutlined';
@@ -9,17 +10,19 @@ import { ModalNotUser } from "../components/Modals/ModalNotUser";
 
 export function HomePage () {
   const { searchUser } = useUser()
+  const navigate = useNavigate()
   const [modalOpen, setModalOpen] = useState(false)
   const { handleSubmit, register, formState: { errors, isSubmitting } } = useForm({
     resolver: zodResolver(SearchUserSchema)
   })
   
   const onSubmit = handleSubmit(async data => {
-    await searchUser(data, setModalOpen)
+    const success = await searchUser(data, setModalOpen)
+    if (success) navigate("/prestamo-libro")
   })
 
   return (
-    <section className="flex justify-center items-center px-8 h-[calc(100vh-92px)] mx-auto">
+    <section className="flex justify-center items-center px-8 h-[calc(100vh-96px)] mx-auto">
       <ModalNotUser open={modalOpen} onClose={() => setModalOpen(false)} />
       <div className="max-w-md w-full p-8 flex flex-col items-center gap-y-5 bg-zinc-300 rounded-xl">
         <h2 className="text-xl font-bold">Prestar Libros</h2>

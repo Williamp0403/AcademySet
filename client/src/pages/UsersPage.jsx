@@ -15,7 +15,7 @@ export function UsersPage () {
  const hasUsers = users && users.length > 0;
 
   return (
-    <section className="flex flex-col gap-y-6 sm:gap-y-12 p-8 sm:p-12 h-[calc(100vh-96px)] mx-auto">
+    <section className="flex flex-col gap-y-6 sm:gap-y-12 py-4 sm:py-6 px-8 sm:px-12 h-[calc(100vh-96px)] mx-auto">
       <div className="flex flex-col sm:flex-row justify-between gap-y-4">
         <div className="flex items-center gap-x-2">
           <PersonIcon fontSize="large" />
