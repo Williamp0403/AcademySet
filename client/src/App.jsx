@@ -4,7 +4,6 @@ import { MinimalLayout } from "./layouts/MinimalLayout";
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { Toaster } from "sonner"
 import { HomePage } from "./pages/HomePage"
-import { Header } from "./components/Header"
 import { BooksPage } from "./pages/BooksPage"
 import { UsersPage } from "./pages/UsersPage"
 import { HistoryPage } from "./pages/HistoryPage"
