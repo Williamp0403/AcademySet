@@ -8,8 +8,7 @@ class LibroSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Libro
-        fields = ['id', 'titulo', 'autor', 'isbn',
-                  'disponible', 'categoria', 'categoria_nombre']
+        fields = '__all__'
         read_only_fields = ['isbn']
         extra_kwargs = {
             'categoria': {'required': True}
