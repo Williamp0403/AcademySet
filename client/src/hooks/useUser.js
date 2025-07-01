@@ -14,6 +14,7 @@ export function useUser () {
       setUsers(response.data)
     } catch (e) {
       console.log(e)
+      toast.error(handleErrors(e))
     } finally {
       setLoading(false)
     }

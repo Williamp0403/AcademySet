@@ -7,10 +7,10 @@ import { Loading } from '../components/Loading';
 import { CardBook } from '../components/CardBook';
 
 export function BooksPage () {
-  const { getBooks, books, loading } = useBook()
+  const { getBooksAndCategories, books, categories, loading } = useBook()
 
   useEffect(() => {
-    getBooks()
+    getBooksAndCategories()
   }, [])
 
   const hasBooks = books && books.length > 0;
@@ -33,7 +33,7 @@ export function BooksPage () {
         <ModalAddBook/>
       </div>
       {
-        loading ? <Loading/>
+        loading ? <Loading className="flex justify-center"/>
         : hasBooks ? (
           <div className='grid grid-cols-2 gap-4 md:gap-8 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5'>
             {

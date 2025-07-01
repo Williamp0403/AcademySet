@@ -10,17 +10,20 @@ import AddIcon from '@mui/icons-material/Add';
 import { Input } from '../Input';
 import { useForm } from "react-hook-form"
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useUser } from '../../context/UserContext';
+import { useBook } from "../../context/BookContext"
 import { ButtonBase } from '../Buttons/ButtonBase';
 import { DialogActions } from '@mui/material';
 import { BookSchema } from '../../schemas/book.schema';
+import { BasicSelect } from '../Select';
 
 export function ModalAddBook () {
   const [open, setOpen] = React.useState(false);
-  const { registerUser } = useUser()
+  const { addBook, categories } = useBook()
+  const validCategoryIds = categories.map(cat => cat.id);
   const { handleSubmit, register, formState: { errors, isSubmitting } } = useForm({
-    resolver: zodResolver(BookSchema)
+    resolver: zodResolver(BookSchema(validCategoryIds))
   })
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -30,9 +33,9 @@ export function ModalAddBook () {
     setOpen(false);
   };
 
-  const onSubmit = handleSubmit( data => {
+  const onSubmit = handleSubmit(async data => {
     console.log(data)
-    // await registerUser(data, handleClose)
+    await addBook(data)
   })
 
   return (
@@ -51,7 +54,7 @@ export function ModalAddBook () {
           Agregar Libro
         </DialogTitle>
         <DialogContent>
-        <form onSubmit={onSubmit} className="flex flex-col gap-y-2 sm:gap-y-5">
+        <form onSubmit={onSubmit} className="flex flex-col gap-y-4">
           <Input 
             label="Título"
             type="text"
@@ -83,7 +86,8 @@ export function ModalAddBook () {
             register={register}
             errors={errors.imagen}
             svg={ImageOutlinedIcon}
-          />       
+          />  
+          <BasicSelect register={register} errors={errors.categoria} categorias={categories} />     
         <DialogActions>
           <button
             className='px-4 py-2 text-sm sm:text-base rounded-md font-semibold bg-zinc-500 text-white hover:bg-zinc-600 transition duration-300 ease-in-out cursor-pointer'
