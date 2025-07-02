@@ -22,7 +22,7 @@ class PrestamoSerializer(serializers.ModelSerializer):
         return localtime(obj.fecha_devolucion).strftime("%Y-%m-%d %H:%M:%S")
     
   def get_nombre_usuario(self, obj):
-     return f"{obj.usuario.nombre} {obj.usuario.apellido}"
+    return f"{obj.usuario.nombre} {obj.usuario.apellido}"
 
   def validate_libro(self, libro):
         if not libro.disponible and not self.instance:
