@@ -13,8 +13,6 @@ export function BooksPage () {
     getBooksAndCategories()
   }, [])
 
-  console.log(books)
-
   const hasBooks = books && books.length > 0;
 
   return (

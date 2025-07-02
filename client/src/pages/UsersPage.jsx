@@ -42,10 +42,10 @@ export function UsersPage () {
                 <TableBody>
                   {users.map((user) => (
                     <TableRow key={user.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                      <TableCell>{user.nombre}</TableCell>
-                      <TableCell>{user.apellido}</TableCell>
-                      <TableCell>{user.correo}</TableCell>
-                      <TableCell>{user.cedula}</TableCell>
+                      <TableCell sx={{ fontWeight: 600 }}>{user.nombre}</TableCell>
+                      <TableCell sx={{ fontWeight: 600 }}>{user.apellido}</TableCell>
+                      <TableCell sx={{ fontWeight: 600 }}>{user.correo}</TableCell>
+                      <TableCell sx={{ fontWeight: 600 }}>{user.cedula}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
