@@ -22,7 +22,7 @@ export const BookSchema = (validCategoryIds) =>
       .nonempty({ message: 'Requerido' })
       .length(13, { message: 'Debe tener exactamente 13 caracteres' }),
 
-    imagen: z
+    imagen_url: z
       .string()
       .trim()
       .nonempty({ message: 'Requerido' }),

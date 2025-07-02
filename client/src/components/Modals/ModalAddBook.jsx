@@ -24,7 +24,6 @@ export function ModalAddBook () {
     resolver: zodResolver(BookSchema(validCategoryIds))
   })
 
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -35,7 +34,7 @@ export function ModalAddBook () {
 
   const onSubmit = handleSubmit(async data => {
     console.log(data)
-    await addBook(data)
+    await addBook(data, handleClose)
   })
 
   return (
@@ -82,7 +81,7 @@ export function ModalAddBook () {
           <Input 
             label="Url de imagen" 
             type="text"
-            name="imagen"
+            name="imagen_url"
             register={register}
             errors={errors.imagen}
             svg={ImageOutlinedIcon}

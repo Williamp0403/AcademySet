@@ -4,6 +4,16 @@ export function handleErrors(e) {
     if (e.response.data?.cedula?.[0] === "usuario with this cedula already exists.") {
       return "El usuario ya existe."
     }
+    if (e.response.data?.isbn?.[0] === "libro with this isbn already exists.") {
+      return "El ISBN ya existe."
+    }
+    if (e.response.data?.libro?.[0] === "Invalid pk \"100\" - object does not exist.") {
+      return "EL libro no existe."
+    }
+    if (e.response.data?.usuario?.[0] === "Invalid pk \"100\" - object does not exist.") {
+      return "EL usuario no existe."
+    }
+    
     return "Los datos ingresados son incorrectos."
   }
 

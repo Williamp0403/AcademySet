@@ -4,7 +4,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import { ModalAddBook } from '../components/Modals/ModalAddBook';
 import { useBook } from '../context/BookContext';
 import { Loading } from '../components/Loading';
-import { CardBook } from '../components/CardBook';
+import { CardBook } from '../components/Cards/CardBook';
 
 export function BooksPage () {
   const { getBooksAndCategories, books, categories, loading } = useBook()
@@ -16,7 +16,7 @@ export function BooksPage () {
   const hasBooks = books && books.length > 0;
 
   return (
-    <section className="flex flex-col gap-y-6 sm:gap-y-12 py-4 sm:py-6 px-8 sm:px-12 h-[calc(100vh-96px)] mx-auto">
+    <section className="flex flex-col gap-y-6 sm:gap-y-12 py-4 sm:py-6 px-8 sm:px-12 h-min-[calc(100vh-96px)] mx-auto">
       <div className='flex items-center gap-x-2'>
         <AutoStoriesOutlinedIcon fontSize='large'/>
         <h1 className="text-2xl font-bold">Gestión de Libros</h1>

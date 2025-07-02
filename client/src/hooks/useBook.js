@@ -24,10 +24,11 @@ export function useBook () {
     }
   }
 
-  async function addBook (data) {
+  async function addBook (data, handleClose) {
     try {
       const response = await addBookRequest(data)
       setBooks(prevBooks => [...prevBooks, response.data])
+      handleClose()
       toast.success('Libro agregado correctamente.')
     } catch (e) {
       console.log(e)
