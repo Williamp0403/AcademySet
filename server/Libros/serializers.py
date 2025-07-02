@@ -9,6 +9,7 @@ class LibroSerializer(serializers.ModelSerializer):
     class Meta:
         model = Libro
         fields = '__all__'
+        read_only_fields = ["disponible"]
         extra_kwargs = {
             'categoria': {'required': True}
         }

@@ -7,8 +7,8 @@ from Usuarios.models import Usuario
 class Prestamo(models.Model):
   usuario = models.ForeignKey(Usuario, on_delete=models.PROTECT)
   libro = models.ForeignKey(Libro, on_delete=models.PROTECT)
-  fecha_inicio = models.DateField(auto_now_add=True)
-  fecha_devolucion = models.DateField(null=True, blank=True)
+  fecha_inicio = models.DateTimeField(auto_now_add=True)
+  fecha_devolucion = models.DateTimeField(null=True, blank=True)
   devuelto = models.BooleanField(default=False)
 
   def __str__(self):

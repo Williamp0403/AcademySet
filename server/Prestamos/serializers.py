@@ -1,13 +1,26 @@
 from rest_framework import serializers
 from .models import Prestamo
+from django.utils import timezone
+from django.utils.timezone import localtime
 
 class PrestamoSerializer(serializers.ModelSerializer):
+  fecha_inicio = serializers.SerializerMethodField()
+  fecha_devolucion = serializers.SerializerMethodField()
+
   class Meta:
     model = Prestamo
     fields = "__all__"
+    read_only_fields = ['devuelto', 'fecha_devolucion']
+
+  def get_fecha_inicio(self, obj):
+     return localtime(obj.fecha_inicio).strftime("%Y-%m-%d %H:%M:%S")
+  
+  def get_fecha_devolucion(self, obj):
+     if obj.fecha_devolucion:
+        return localtime(obj.fecha_devolucion).strftime("%Y-%m-%d %H:%M:%S")
 
   def validate_libro(self, libro):
-        if not libro.disponible:
+        if not libro.disponible and not self.instance:
             raise serializers.ValidationError("Este libro no está disponible.")
         return libro
     
@@ -16,4 +29,17 @@ class PrestamoSerializer(serializers.ModelSerializer):
       libro.disponible = False
       libro.save()
       return super().create(validated_data)
+  
+  def update(self, instance, validated_data):
+    nuevo_estado = self.initial_data.get("devuelto", instance.devuelto)
+
+    if instance.devuelto and not nuevo_estado:
+      raise serializers.ValidationError("Este préstamo ya fue devuelto y no puede ser revertido.")
+
+    if not instance.devuelto and nuevo_estado:
+      instance.devuelto = True
+      instance.fecha_devolucion = timezone.now()
+      instance.libro.disponible = True
+      instance.libro.save()
     
+    return super().update(instance, validated_data)
