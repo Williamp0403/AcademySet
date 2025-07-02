@@ -2,7 +2,7 @@ export function CardAvailableBook ({ book, handleClick }) {
   const { titulo, isbn, autor, imagen_url } = book
 
   return (
-    <div onClick={handleClick} className="bg-white shadow-xl hover:shadow-2xl shadow-zinc-400 hover:shadow-zinc-500 hover:scale-105 transition-all ease-in-out duration-300 overflow-hidden w-full cursor-pointer">
+    <div onClick={handleClick} className="bg-white shadow-xl hover:shadow-2xl shadow-zinc-400 hover:shadow-sky-500 hover:scale-105 transition-all ease-in-out duration-300 overflow-hidden w-full cursor-pointer">
       <img className="w-full aspect-[2/3] object-cover" 
         src={imagen_url} 
         alt={titulo} 

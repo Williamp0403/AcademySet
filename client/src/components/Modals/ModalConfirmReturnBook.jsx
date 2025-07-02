@@ -1,18 +1,16 @@
 import * as React from 'react';
 import { useForm } from 'react-hook-form';
+import UndoIcon from '@mui/icons-material/Undo'
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { DialogActions } from '@mui/material';
-import { useUser } from '../../context/UserContext';
 import { useLoan } from '../../context/LoanContext';
-import { CardAvailableBook } from '../Cards/CardAvailableBook';
 
-export function ModalLoanConfirm({ book }) {
+export function ModalConfirmReturnBook ({ book }) {
   const [open, setOpen] = React.useState(false);
   const { handleSubmit } = useForm();
-  const { user } = useUser();
-  const { loan } = useLoan();
+  const { returnBook } = useLoan();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -23,16 +21,18 @@ export function ModalLoanConfirm({ book }) {
   };
 
   const onSubmit = async () => {
-    const data = {
-      libro: book.id,
-      usuario: user.id
-    }
-    await loan(data, handleClose)
+    await returnBook (book.id, handleClose)
   };
 
   return (
     <React.Fragment>
-      <CardAvailableBook book={book} handleClick={handleClickOpen} />
+      <button
+        onClick={handleClickOpen}
+        className="flex items-center gap-1 bg-sky-500 hover:bg-sky-600 text-white text-xs font-bold py-1 px-2 rounded cursor-pointer"
+      >
+        <UndoIcon fontSize="small" />
+        Devolver
+      </button>
 
       <Dialog
         open={open}
@@ -43,10 +43,10 @@ export function ModalLoanConfirm({ book }) {
         fullWidth
       >
         <DialogTitle sx={{ fontWeight: 'bold' }} id="alert-dialog-title">
-          Realizar Prestamo
+          Confirmar devolución
         </DialogTitle>
         <DialogContent>
-          <p>¿Estás seguro que deseas prestar el libro "{book.titulo}"?</p>
+          <p>El libro "{book.titulo}" se devolverá a la biblioteca</p>
         </DialogContent>
         <DialogActions>
           <form className='space-x-2' onSubmit={handleSubmit(onSubmit)}>

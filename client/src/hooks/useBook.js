@@ -40,6 +40,7 @@ export function useBook () {
     books,
     categories,
     loading,
+    setBooks,
     getBooksAndCategories,
     addBook
   }

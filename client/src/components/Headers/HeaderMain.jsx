@@ -3,7 +3,7 @@ import { BurgerMenu } from "../BurgerMenu"
 
 export function HeaderMain () {
   return (
-    <header className="sticky top-0 z-5 bg-zinc-100">
+    <header className="sticky top-0 z-10 bg-zinc-100">
       <nav className="flex items-center justify-between h-24 py-8 px-8 sm:px-12">
         <h2 className="font-bold text-xl">AcademySet</h2>
         <ul className='hidden md:flex justify-between gap-x-20'>

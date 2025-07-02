@@ -51,7 +51,7 @@ export function UsersPage () {
                 </TableBody>
               </Table>
             </TableContainer>
-          ) : <h1>No hay usuarios</h1>
+          ) : <h2 className="font-bold text-zinc-600">No hay usuarios</h2>
         } 
       </div>
     </section>
