@@ -6,6 +6,8 @@ from django.utils.timezone import localtime
 class PrestamoSerializer(serializers.ModelSerializer):
   fecha_inicio = serializers.SerializerMethodField()
   fecha_devolucion = serializers.SerializerMethodField()
+  titulo_libro = serializers.CharField(source="libro.titulo", read_only=True)
+  nombre_usuario = serializers.SerializerMethodField()
 
   class Meta:
     model = Prestamo
@@ -18,6 +20,9 @@ class PrestamoSerializer(serializers.ModelSerializer):
   def get_fecha_devolucion(self, obj):
      if obj.fecha_devolucion:
         return localtime(obj.fecha_devolucion).strftime("%Y-%m-%d %H:%M:%S")
+    
+  def get_nombre_usuario(self, obj):
+     return f"{obj.usuario.nombre} {obj.usuario.apellido}"
 
   def validate_libro(self, libro):
         if not libro.disponible and not self.instance:
