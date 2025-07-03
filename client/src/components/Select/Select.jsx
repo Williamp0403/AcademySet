@@ -1,20 +1,14 @@
-import {
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  FormHelperText
-} from '@mui/material';
+import { FormControl, InputLabel, Select, MenuItem, FormHelperText } from '@mui/material';
 
-export function BasicSelect({ register, errors, categorias = [] }) {
+export function BasicSelect({ register, errors, categorias = [], defaultValue }) {
   return (
     <FormControl fullWidth error={!!errors}>
       <InputLabel id="categoria-label">Categoría</InputLabel>
       <Select
         labelId="categoria-label"
         id="categoria"
-        defaultValue=""
-        {...register("categoria", { required: "La categoría es obligatoria" })}
+        defaultValue={defaultValue ?? ""}
+        {...register("categoria", { required: "La categoría es obligatoria", valueAsNumber: true })}
       >
         <MenuItem value="" disabled>Selecciona una categoría</MenuItem>
         {categorias.map((cat) => (
@@ -23,9 +17,8 @@ export function BasicSelect({ register, errors, categorias = [] }) {
           </MenuItem>
         ))}
       </Select>
-      {errors && (
-        <FormHelperText>{errors.message}</FormHelperText>
-      )}
+      {errors && <FormHelperText>{errors.message}</FormHelperText>}
     </FormControl>
   );
 }
+

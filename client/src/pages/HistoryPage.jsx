@@ -12,8 +12,6 @@ export function HistoryPage () {
     getLoan()
   }, [])
 
-  console.log(loans)
-
   const hasLoans = loans && loans.length > 0;
 
   return (

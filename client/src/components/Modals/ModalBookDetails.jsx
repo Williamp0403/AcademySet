@@ -1,5 +1,5 @@
 import * as React from 'react';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -26,10 +26,10 @@ export function ModalBookDetails({ book }) {
   return (
     <React.Fragment>
       <button
-        className="flex items-center gap-x-1 font-medium text-xs text-zinc-700 cursor-pointer"
+        className="flex items-center gap-x-1 font-medium text-zinc-700 cursor-pointer"
         onClick={handleClickOpen}
       >
-        <MoreHorizIcon fontSize="small" />
+        <VisibilityIcon fontSize="small" />
         Ver Detalles
       </button>
 

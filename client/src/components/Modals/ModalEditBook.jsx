@@ -6,23 +6,29 @@ import PersonOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import MenuBookOutlinedIcon from '@mui/icons-material/MenuBookOutlined';
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
 import LibraryBooksOutlinedIcon from '@mui/icons-material/LibraryBooksOutlined';
-import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
 import { Input } from '../Input';
 import { useForm } from "react-hook-form"
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useBook } from "../../context/BookContext"
-import { ButtonBase } from '../Buttons/ButtonBase';
 import { DialogActions } from '@mui/material';
 import { BookSchema } from '../../schemas/book.schema';
 import { BasicSelect } from '../Select/Select';
 
-export function ModalAddBook () {
+export function ModalEditBook ({ book }) {
   const [open, setOpen] = React.useState(false);
-  const { addBook, categories } = useBook()
+  const { editBook, categories } = useBook()
   const validCategoryIds = categories.map(cat => cat.id);
   const { handleSubmit, register, formState: { errors, isSubmitting } } = useForm({
-    resolver: zodResolver(BookSchema(validCategoryIds))
-  })
+    resolver: zodResolver(BookSchema(validCategoryIds)),
+    defaultValues: {
+      titulo: book.titulo,
+      autor: book.autor,
+      isbn: book.isbn,
+      imagen_url: book.imagen_url,
+      categoria: book.categoria
+    }
+  });
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -33,13 +39,18 @@ export function ModalAddBook () {
   };
 
   const onSubmit = handleSubmit(async data => {
-    console.log(data)
-    await addBook(data, handleClose)
+    await editBook(book.id, data, handleClose)
   })
 
   return (
     <React.Fragment>
-      <ButtonBase label="Agregar Libro" svg={AddIcon} action={handleClickOpen}/>
+      <button
+        className="flex items-center gap-x-1 font-medium text-zinc-700 cursor-pointer"
+        onClick={handleClickOpen}
+      >
+        <EditIcon fontSize="small" />
+        Editar Libro
+      </button>
 
       <Dialog
         open={open}
@@ -50,7 +61,7 @@ export function ModalAddBook () {
         fullWidth       
       >
         <DialogTitle sx={{ fontWeight: 'bold' }} id="alert-dialog-title">
-          Agregar Libro
+          Editar Libro
         </DialogTitle>
         <DialogContent>
         <form onSubmit={onSubmit} className="flex flex-col gap-y-4">
@@ -86,7 +97,12 @@ export function ModalAddBook () {
             errors={errors.imagen_url}
             svg={ImageOutlinedIcon}
           />  
-          <BasicSelect register={register} errors={errors.categoria} categorias={categories} />     
+          <BasicSelect
+            register={register}
+            errors={errors.categoria}
+            categorias={categories}
+            defaultValue={book?.categoria}
+          />
         <DialogActions>
           <button
             className='px-4 py-2 text-sm sm:text-base rounded-md font-semibold bg-zinc-500 text-white hover:bg-zinc-600 transition duration-300 ease-in-out cursor-pointer'
@@ -100,7 +116,7 @@ export function ModalAddBook () {
             className='px-4 py-2 text-sm sm:text-base rounded-md font-semibold bg-sky-500 text-white hover:bg-sky-600 disabled:opacity-50 disabled:cursor-not-allowed transition duration-300 ease-in-out cursor-pointer'
             type='submit'
           >
-            {isSubmitting ? 'Agregando...' : 'Agregar'}
+            {isSubmitting ? 'Editando...': 'Editar'}
           </button>
         </DialogActions>
         </form>

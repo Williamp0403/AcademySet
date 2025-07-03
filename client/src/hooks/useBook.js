@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { addBookRequest, getBooksRequest, getCategories } from "../api/book"
+import { addBookRequest, editBookRequest, getBooksRequest, getCategories } from "../api/book"
 import { toast } from "sonner"
 import { handleErrors } from "../utils/errors"
 
@@ -36,12 +36,36 @@ export function useBook () {
     }
   }
 
+  async function editBook (id, data, handleClose) {
+    try {
+      const response = await editBookRequest(id, data);
+      console.log(response)
+      const updatedBook = response.data;
+
+      setBooks(prevBooks => {
+        const index = prevBooks.findIndex(book => book.id === updatedBook.id)
+        if (index === -1) return prevBooks
+
+        const updatedList = [...prevBooks]
+        updatedList[index] = updatedBook
+        return updatedList
+      })
+
+      handleClose()
+      toast.success('Libro editado exitosamente.');
+    } catch (e) {
+      console.log(e);
+      toast.error(handleErrors(e));
+    }
+  }
+
   return {
     books,
     categories,
     loading,
     setBooks,
     getBooksAndCategories,
-    addBook
+    addBook,
+    editBook
   }
 }
